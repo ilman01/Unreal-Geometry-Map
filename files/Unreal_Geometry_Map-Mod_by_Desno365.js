@@ -177,12 +177,9 @@ function entityAddedHook(entity)
 {
 	// remove entities that may spawn randomly inside the map
 	var entityId = Entity.getEntityTypeId(entity);
-	if(entityId != 0)
+	if(entityId != EntityType.PAINTING && entityId != EntityType.PLAYER)
 	{
-		if(entityId == EntityType.BAT || entityId == EntityType.CAVE_SPIDER || entityId == EntityType.CHICKEN || entityId == EntityType.COW || entityId == EntityType.CREEPER || entityId == EntityType.ENDERMAN || entityId == EntityType.OCELOT || entityId == EntityType.PIG || entityId == EntityType.PIG_ZOMBIE || entityId == EntityType.PRIMED_TNT || entityId == EntityType.RABBIT || entityId == EntityType.SHEEP || entityId == EntityType.SKELETON || entityId == EntityType.SLIME || entityId == EntityType.SPIDER || entityId == EntityType.VILLAGER || entityId == EntityType.WOLF || entityId == EntityType.ZOMBIE || entityId == EntityType.ZOMBIE_VILLAGER)
-		{
-			Entity.remove(entity);
-		}
+		Entity.remove(entity);
 	}
 }
 
