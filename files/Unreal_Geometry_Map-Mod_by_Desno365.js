@@ -33,9 +33,6 @@ metrics = null;
 var worldPath;
 const MAX_POSITION = 10;
 
-// minecraft variables
-const ENTITY_ID_PAINTING = 83;
-
 // unreal geometry variables
 var position = 0;
 var previousX = 0;
@@ -76,14 +73,19 @@ function newLevel()
 		}
 	}).start();
 
+	// load previous position if present
 	loadSavedPosition();
 
-	clientMessage("Unreal Geometry Mod started.");
+	currentActivity.runOnUiThread(new java.lang.Runnable() {
+		run: function() {
+			android.widget.Toast.makeText(currentActivity, new android.text.Html.fromHtml("Unreal Geometry Mod started."), 0).show();
+		}
+	});
 }
 
 function leaveGame()
 {
-	//
+	// save position in a file
 	saveCurrentPosition();
 }
 
@@ -95,79 +97,79 @@ function useItem(x, y, z, itemId, blockId, side, itemDamage)
 
 	if(x == 974 && y == 5 && (z == 78 || z == 79))
 	{
+		// player hit the discover other great things sign
 		preventDefault();
 		discoverGreatThings();
 		return;
 	}
 
-
 	/*
-	if(itemId == 267) // iron sword
-	{
-		new java.lang.Thread(new java.lang.Runnable()
-		{ 
-			run: function()
-			{
-				for (var i = 0; i < l; i++)
+		// simple code for copying buildings
+		if(itemId == 267) // iron sword
+		{
+			new java.lang.Thread(new java.lang.Runnable()
+			{ 
+				run: function()
 				{
-					for (var j = 0; j < l; j++)
+					for (var i = 0; i < l; i++)
 					{
-						for (var k = 0; k < l; k++)
+						for (var j = 0; j < l; j++)
 						{
-							array[i][j][k] = Level.getTile(x + i, y + j, z + k);
-						}
-					}
-				}
-
-				clientMessage("Ready");
-			}
-		}).start();
-	}
-
-	if(itemId == 352) // bone
-	{
-		new java.lang.Thread(new java.lang.Runnable()
-		{ 
-			run: function()
-			{
-				for (var i = 0; i < l; i++)
-				{
-					for (var j = 0; j < l; j++)
-					{
-						for (var k = 0; k < l; k++)
-						{
-							if(array[i][j][k] != 0)
+							for (var k = 0; k < l; k++)
 							{
-								Level.setTile(x + i, y + j, z + k, array[i][j][k]);
+								array[i][j][k] = Level.getTile(x + i, y + j, z + k);
 							}
 						}
 					}
-				}
 
-				clientMessage("Done");
-			}
-		}).start();
-	}
+					clientMessage("Ready");
+				}
+			}).start();
+		}
+
+		if(itemId == 352) // bone
+		{
+			new java.lang.Thread(new java.lang.Runnable()
+			{ 
+				run: function()
+				{
+					for (var i = 0; i < l; i++)
+					{
+						for (var j = 0; j < l; j++)
+						{
+							for (var k = 0; k < l; k++)
+							{
+								if(array[i][j][k] != 0)
+								{
+									Level.setTile(x + i, y + j, z + k, array[i][j][k]);
+								}
+							}
+						}
+					}
+
+					clientMessage("Done");
+				}
+			}).start();
+		}
 	*/
 }
 
 function attackHook(attacker, victim)
 {
-	if(Entity.getEntityTypeId(victim) == ENTITY_ID_PAINTING)
-	{
+	// prevents painting to be removed
+	if(Entity.getEntityTypeId(victim) == EntityType.PAINTING)
 		preventDefault();
-	}
 }
 
 function startDestroyBlock(x, y, z, side)
 {
-	//
+	// prevents block destruction
 	preventDefault();
 }
 
 function destroyBlock(x, y, z, side)
 {
-	//
+	// prevents block destruction
 	preventDefault();
 }
 
@@ -200,9 +202,7 @@ function modTick()
 				position = 1;
 			}
 		}
-	}
-
-
+	} else
 
 	if(position == 1)
 	{
@@ -221,9 +221,7 @@ function modTick()
 				position = 2;
 			}
 		}
-	}
-
-
+	} else
 
 	if(position == 2)
 	{
@@ -242,9 +240,7 @@ function modTick()
 				position = 3;
 			}
 		}
-	}
-
-
+	} else
 
 	if(position == 3)
 	{
@@ -263,9 +259,7 @@ function modTick()
 				position = 4;
 			}
 		}
-	}
-
-
+	} else
 
 	if(position == 4)
 	{
@@ -284,9 +278,7 @@ function modTick()
 				position = 5;
 			}
 		}
-	}
-
-
+	} else
 
 	if(position == 5)
 	{
@@ -305,9 +297,7 @@ function modTick()
 				position = 6;
 			}
 		}
-	}
-
-
+	} else
 
 	if(position == 6)
 	{
@@ -326,9 +316,7 @@ function modTick()
 				position = 7;
 			}
 		}
-	}
-
-
+	} else
 
 	if(position == 7)
 	{
@@ -348,9 +336,7 @@ function modTick()
 				closeDoor();
 			}
 		}
-	}
-
-
+	} else
 
 	if(position == 8)
 	{
@@ -386,9 +372,7 @@ function modTick()
 				openDoor();
 			}
 		}
-	}
-
-
+	} else
 
 	if(position == 9)
 	{
@@ -409,9 +393,7 @@ function modTick()
 				position = 10;
 			}
 		}
-	}
-
-
+	} else
 
 	if(position == 10)
 	{
